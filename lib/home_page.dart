@@ -27,6 +27,21 @@ class HomePage extends StatelessWidget {
           return TodoWidget(title: titles[index], isDone: index % 2 == 0);
         },
       ),
+      // 익명함수 => 이름이 없는 함수
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print('버튼 터치됨');
+        },
+        backgroundColor: Color(0xff5714E6),
+        shape: RoundedRectangleBorder( // 둥글기
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 36,
+        ),
+      ),
     );
   }
 }
