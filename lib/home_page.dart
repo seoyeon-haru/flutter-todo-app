@@ -31,9 +31,64 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('버튼 터치됨');
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Container(
+                height: 300,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                padding:
+                    EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '할일',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: 11),
+                    //TODO 키보드가 바텀시트 가리는 형상 해결하기
+                    // TODO 키보드 올라와있을 때 흰색 컨테이너 터치하면 키보드 없애는거 구현하기
+                    // TODO 저장 버튼 꾸미기!
+                    TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(
+                              color: Color(0xff1414E6),
+                            )),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Color(0xff1414E6),
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('저장'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
         },
         backgroundColor: Color(0xff5714E6),
-        shape: RoundedRectangleBorder( // 둥글기
+        shape: RoundedRectangleBorder(
+          // 둥글기
           borderRadius: BorderRadius.circular(100),
         ),
         child: Icon(
