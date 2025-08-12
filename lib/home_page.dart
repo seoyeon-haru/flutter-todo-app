@@ -31,9 +31,16 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('버튼 터치됨');
+          // 차지할 수 있는 영역이 정해져 있음
           showModalBottomSheet(
             context: context,
+            // 그 영역을 늘려주는 속성 => 화면 전체 사용할 수 있게 해주는 속성!
+            isScrollControlled: true,
             builder: (context) {
+              // 키보드 높이
+              //viewInsets = 키보드위치에 대한 정보
+              final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+              print('키보드의 높이는 : $keyboardHeight');
               return Container(
                 height: 300,
                 width: double.infinity,
@@ -44,7 +51,11 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 padding:
+                    //EdgeInsets = 왼쪽, 위, 오른쪽, 아래에 대한 위치 정보를 가지고 있음
                     EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 24),
+                // 키보드 영역만큼 아래 공간 띄우기
+                // 컨테이너 외부에 공간 줄 때는 margin
+                margin: EdgeInsets.only(bottom: keyboardHeight),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -56,7 +67,6 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 11),
-                    //TODO 키보드가 바텀시트 가리는 형상 해결하기
                     // TODO 키보드 올라와있을 때 흰색 컨테이너 터치하면 키보드 없애는거 구현하기
                     // TODO 저장 버튼 꾸미기!
                     TextField(
