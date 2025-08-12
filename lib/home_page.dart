@@ -75,7 +75,6 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 11),
-                      // TODO 저장 버튼 꾸미기!
                       TextField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -93,9 +92,31 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       Spacer(),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('저장'),
+                      // ElevatedButton 속성에는 크기를 정할 수 있는 속성이 없음
+                      // 부모 위젯의 크기가 있다면 => 부모 위젯의 크기만큼 버튼 크기가 확장됨
+                      // 부모 위젯의 크기가 없다면 => 자녀 위젯의 크기만큼 축소됨
+                      SizedBox(
+                        //double.infinity =>  소수 표현하는 타입 double
+                        // => double(소수)이 가질 수 있는 값 중에서 가장 큰값(무한)
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          //ButtonStryle 클래스 사용하면
+                          // WidgetStatePropertyAll(Colors.red)
+                          // 이런 식으로 객체 하나 더 감싸줘야 해서
+                          // 코드가 길어짐
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xff5714E6),
+                            // 버튼 내 아이콘, 텍스트 모두 적용됨
+                            foregroundColor: Colors.white,
+                            textStyle: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: Text('저장'),
+                        ),
                       ),
                     ],
                   ),
