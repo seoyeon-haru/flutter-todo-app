@@ -41,56 +41,64 @@ class HomePage extends StatelessWidget {
               //viewInsets = 키보드위치에 대한 정보
               final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
               print('키보드의 높이는 : $keyboardHeight');
-              return Container(
-                height: 300,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20),
-                  ),
-                ),
-                padding:
-                    //EdgeInsets = 왼쪽, 위, 오른쪽, 아래에 대한 위치 정보를 가지고 있음
-                    EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 24),
-                // 키보드 영역만큼 아래 공간 띄우기
-                // 컨테이너 외부에 공간 줄 때는 margin
-                margin: EdgeInsets.only(bottom: keyboardHeight),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '할일',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
+              return GestureDetector(
+                onTap: () {
+                  print('컨테이너 터치됨');
+                  // MaterialApp내에 아래 속성 있음
+                  // context가 위치를 가지고 있고 이걸로 부모 위젯을 탐색할 수 있음
+                  // 키보드 내릴 때!
+                  FocusScope.of(context).unfocus();
+                },
+                child: Container(
+                  height: 300,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
                     ),
-                    SizedBox(height: 11),
-                    // TODO 키보드 올라와있을 때 흰색 컨테이너 터치하면 키보드 없애는거 구현하기
-                    // TODO 저장 버튼 꾸미기!
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
+                  ),
+                  padding:
+                      //EdgeInsets = 왼쪽, 위, 오른쪽, 아래에 대한 위치 정보를 가지고 있음
+                      EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 24),
+                  // 키보드 영역만큼 아래 공간 띄우기
+                  // 컨테이너 외부에 공간 줄 때는 margin
+                  margin: EdgeInsets.only(bottom: keyboardHeight),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '할일',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 11),
+                      // TODO 저장 버튼 꾸미기!
+                      TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Color(0xff1414E6),
+                              )),
+                          focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(
                               color: Color(0xff1414E6),
-                            )),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: Color(0xff1414E6),
-                            width: 1.5,
+                              width: 1.5,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Spacer(),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('저장'),
-                    ),
-                  ],
+                      Spacer(),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text('저장'),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
