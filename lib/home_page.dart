@@ -38,9 +38,19 @@ class _HomePageState extends State<HomePage> {
         },
         itemBuilder: (context, index) {
           Todo todoItem = todoList[index];
-          return TodoWidget(
-            title: todoItem.title,
-            isDone: todoItem.isDone,
+          return GestureDetector(
+            onTap: () {
+              print('투두 위젯 터치됨');
+              /// todoItem 변수에 담긴 isDone 바꿔주기
+              todoItem.isDone = !todoItem.isDone;
+              setState(() {
+                
+              });
+            },
+            child: TodoWidget(
+              title: todoItem.title,
+              isDone: todoItem.isDone,
+            ),
           );
         },
       ),
