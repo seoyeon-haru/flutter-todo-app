@@ -41,43 +41,6 @@ class TodoWidget extends StatelessWidget {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              print("삭제버튼 터치됨");
-            },
-            child: Container(
-              width: 24,
-              height: 24,
-              alignment: Alignment.center,
-              child: Text(
-                "삭제",
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Color(0xFF5773FF),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 12),
-          GestureDetector(
-            onTap: () {
-              print("수정버튼 터치됨");
-            },
-            child: Container(
-              width: 24,
-              height: 24,
-              alignment: Alignment.center,
-              child: Text(
-                "수정",
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Color(0xFF5773FF),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
