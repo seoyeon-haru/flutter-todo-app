@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_app/todo.dart';
 import 'package:flutter_todo_app/todo_widget.dart';
 
 // CRUD
@@ -17,8 +18,8 @@ class _HomePageState extends State<HomePage> {
   /// dynamic 은 모든 타입 다 받을 수 있을 때
   // Generic => 타입을 나중에 지정하고 싶을 때 사용
   // 여러가지 담고 싶은데 클래스는 하나만 구현하고 싶을 때
-  List<Map<String, dynamic>> todoList = [];
-
+  List<Todo> todoList = [];
+  void buttonClick() {}
   // @override => 어노테이션
   @override
   Widget build(BuildContext context) {
@@ -36,10 +37,10 @@ class _HomePageState extends State<HomePage> {
           return SizedBox(height: 20);
         },
         itemBuilder: (context, index) {
-          Map<String, dynamic> todoItem = todoList[index];
+          Todo todoItem = todoList[index];
           return TodoWidget(
-            title: todoItem['title'],
-            isDone: todoItem['isDone'],
+            title: todoItem.title,
+            isDone: todoItem.isDone,
           );
         },
       ),
@@ -136,11 +137,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                           onPressed: () {
                             // todoList에 Map을 추가!
-                            Map<String, dynamic> newData = {
-                              'title': controller.text,
-                              'isDone': false,
-                            };
-                            todoList.add(newData);
+                           
+                            Todo newTodo = Todo(
+                              title: controller.text,
+                              isDone: false,
+                            );
+                            todoList.add(newTodo);
                             setState(() {});
                             print('저장됨 투두 리스트 개수 : ${todoList.length}');
                             // 네비게이터가 관리하는 페이지를 담아놓는 컵(스택)에서 가장
