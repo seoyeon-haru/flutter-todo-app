@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/todo_widget.dart';
 
-class HomePage extends StatelessWidget {
+// CRUD
+// Create => 투두 작성
+// Read => 저장된 투두리스트 불러오기
+// Update => 투두 수정
+// Delete =>  투두 삭제
+
+class HomePage extends StatefulWidget {
+  // 필요한 것 : 투두 내용 (title), 완료 여부 (isDone)
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  /// dynamic 은 모든 타입 다 받을 수 있을 때
+  // Generic => 타입을 나중에 지정하고 싶을 때 사용
+  // 여러가지 담고 싶은데 클래스는 하나만 구현하고 싶을 때
+  List<Map<String, dynamic>> todoList = [];
+
   // @override => 어노테이션
-  // 코드의 메타데이터!
-  // 없어도 에러는 나지 않음
-  // 협업할 때, 다른개발자한테 알려주기위해서!
-  // 빌드할때 (apk파일 만들 때)
   @override
   Widget build(BuildContext context) {
-    List<String> titles = ["물마시기", "프로그래밍", "아침에코딩", "Q&A", "스터디"];
     return Scaffold(
       appBar: AppBar(
         title: Text("투두앱"),
@@ -19,12 +31,16 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: EdgeInsets.all(20),
-        itemCount: titles.length,
+        itemCount: todoList.length,
         separatorBuilder: (context, index) {
           return SizedBox(height: 20);
         },
         itemBuilder: (context, index) {
-          return TodoWidget(title: titles[index], isDone: index % 2 == 0);
+          Map<String, dynamic> todoItem = todoList[index];
+          return TodoWidget(
+            title: todoItem['title'],
+            isDone: todoItem['isDone'],
+          );
         },
       ),
       // 익명함수 => 이름이 없는 함수
@@ -41,6 +57,9 @@ class HomePage extends StatelessWidget {
               //viewInsets = 키보드위치에 대한 정보
               final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
               print('키보드의 높이는 : $keyboardHeight');
+
+              // FIXME dispose 호출해줘야됨
+              TextEditingController controller = TextEditingController();
               return GestureDetector(
                 onTap: () {
                   print('컨테이너 터치됨');
@@ -76,6 +95,7 @@ class HomePage extends StatelessWidget {
                       ),
                       SizedBox(height: 11),
                       TextField(
+                        controller: controller,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -114,7 +134,19 @@ class HomePage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            // todoList에 Map을 추가!
+                            Map<String, dynamic> newData = {
+                              'title': controller.text,
+                              'isDone': false,
+                            };
+                            todoList.add(newData);
+                            setState(() {});
+                            print('저장됨 투두 리스트 개수 : ${todoList.length}');
+                            // 네비게이터가 관리하는 페이지를 담아놓는 컵(스택)에서 가장
+                            // 위에 쌓인 페이지 꺼내기(pop)
+                            Navigator.pop(context);
+                          },
                           child: Text('저장'),
                         ),
                       ),
