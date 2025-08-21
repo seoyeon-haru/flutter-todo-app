@@ -41,19 +41,17 @@ class _HomePageState extends State<HomePage> {
           return GestureDetector(
             onTap: () {
               print('투두 위젯 터치됨');
+
               /// todoItem 변수에 담긴 isDone 바꿔주기
               todoItem.isDone = !todoItem.isDone;
-              setState(() {
-                
-              });
+              setState(() {});
             },
             onLongPress: () {
               print('길게 터치됨');
+
               /// todoList 변수에 담긴 Todo를 삭제
               todoList.removeAt(index);
-              setState(() {
-                
-              });
+              setState(() {});
             },
             child: TodoWidget(
               title: todoItem.title,
@@ -155,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           onPressed: () {
                             // todoList에 Map을 추가!
-                           
+
                             Todo newTodo = Todo(
                               title: controller.text,
                               isDone: false,
