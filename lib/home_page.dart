@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/todo.dart';
 import 'package:flutter_todo_app/todo_widget.dart';
@@ -20,6 +21,40 @@ class _HomePageState extends State<HomePage> {
   // 여러가지 담고 싶은데 클래스는 하나만 구현하고 싶을 때
   List<Todo> todoList = [];
   void buttonClick() {}
+
+  /// todos 컬렉션의 모든 투두 데이터 가지고 오는 함수
+  void loadTodoList() async {
+    // 1. Firestore 인스턴스 (객체)
+    final firestore = FirebaseFirestore.instance;
+    // 2. 1번에서 만든 객체로 컬렉션 참조 만들어주기
+    final colRef = firestore.collection('todos');
+    // 3. 2번에서 만든 컬렉션 참조로 모든 데이터 불러오기
+    final result = await colRef.get();
+    final documentList = result.docs;
+
+    List<Todo> newTodoList = [];
+    for (var i = 0; i < documentList.length; i++) {
+      final document = documentList[i];
+      print(document.id);
+
+      /// QueryDocumentSnapshot 이라는 객체 내 data() 함수 호출해주면
+      /// 우리가 원하는 진짜 데이터 반환해줌!
+      final realData = document.data();
+      Todo todo = Todo(title: realData['title'], isDone: realData['isDone']);
+      newTodoList.add(todo);
+    }
+    setState(() {
+      todoList = newTodoList;
+    });
+  }
+
+  /// StatefulWidget 이 화면에 보일 때 딱 한번만 호출되는 초기화 함수
+  @override
+  void initState() {
+    loadTodoList();
+    super.initState();
+  }
+
   // @override => 어노테이션
   @override
   Widget build(BuildContext context) {
