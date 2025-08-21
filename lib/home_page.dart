@@ -186,15 +186,18 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () {
-                            // todoList에 Map을 추가!
-
-                            Todo newTodo = Todo(
-                              title: controller.text,
-                              isDone: false,
-                            );
-                            todoList.add(newTodo);
-                            setState(() {});
+                          onPressed: () async{
+                            // 1. Firestore 인스턴스 가져오기
+                            final firestore = FirebaseFirestore.instance;
+                            // 2. 어떤 컬렉션에 저장할지 설정하는 컬렉션 참조 만들기
+                            final colRef = firestore.collection('todos');
+                            // 3. 어떤 문서를 저장할지 설정하는 문서 참조
+                            final docRef = colRef.doc();
+                            await docRef.set({
+                              'title': controller.text,
+                              'isDone': false,
+                            });
+                            loadTodoList();
                             print('저장됨 투두 리스트 개수 : ${todoList.length}');
                             // 네비게이터가 관리하는 페이지를 담아놓는 컵(스택)에서 가장
                             // 위에 쌓인 페이지 꺼내기(pop)
