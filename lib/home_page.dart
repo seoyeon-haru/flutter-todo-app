@@ -104,11 +104,12 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {
                             Navigator.pop(context, true);
                           },
+                          isDestructiveAction: true,
                           child: Text(
                             '삭제',
-                            style: TextStyle(color: Colors.red),
                           )),
                       CupertinoDialogAction(
+                          isDefaultAction: true,
                           onPressed: () {
                             Navigator.pop(context, false);
                           },
