@@ -8,9 +8,11 @@
 class Todo {
   String title;
   bool isDone;
+  String Id;
 
   Todo({
     required this.title,
     required this.isDone,
+    required this.Id,
   });
 }
